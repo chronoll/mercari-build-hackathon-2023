@@ -1,4 +1,4 @@
-package handler
+package handler //test
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 )
-
+//test2
 var (
 	logFile = getEnv("LOGFILE", "access.log")
 )
