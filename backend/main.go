@@ -9,12 +9,12 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/chronoll/mecari-build-hackathon-2023/backend/db"
+	"github.com/chronoll/mecari-build-hackathon-2023/backend/handler"
 	"github.com/golang-jwt/jwt/v5"
 	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/chronoll/mecari-build-hackathon-2023/backend/db"
-	"github.com/chronoll/mecari-build-hackathon-2023/backend/handler"
 )
 
 const (
@@ -95,7 +95,7 @@ func run(ctx context.Context) int {
 	l.POST("/purchase/:itemID", h.Purchase)
 	l.GET("/balance", h.GetBalance)
 	l.POST("/balance", h.AddBalance)
-
+	l.POST("/items/new_category", h.AddCategory)
 	// Start server
 	go func() {
 		if err := e.Start(":9000"); err != nil && err != http.ErrServerClosed {
