@@ -29,6 +29,9 @@ export const Listing: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [cookies] = useCookies(["token", "userID"]);
 
+  //Add the new state here
+  const [newCategoryName, setNewCategoryName]=useState("");
+
   const onValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -110,6 +113,28 @@ export const Listing: React.FC = () => {
       });
   };
 
+
+  const addNewCategory = () => {
+    fetcher(`/items/new_category`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${cookies.token}`,
+      },
+      body: JSON.stringify({
+        name: newCategoryName,
+      }),
+    })
+      .then((newCategory) => {
+        setCategories([...categories, newCategory]); // Add the new category to the list
+        setNewCategoryName(""); // Clear the new category name field
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -127,6 +152,15 @@ export const Listing: React.FC = () => {
               onChange={onValueChange}
               required
             />
+            <div>  
+              <input // New category input field
+                type="text"
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                placeholder="Enter new category"
+              />
+              <button type="button" onClick={addNewCategory}>Add Category</button>
+            </div>
             <select
               name="category_id"
               id="MerTextInput"
