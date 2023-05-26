@@ -1,5 +1,6 @@
-package handler //test
+package handler
 
+//作業中の内容が消えないよう気を付けます
 import (
 	"bytes"
 	"database/sql"
