@@ -1,6 +1,5 @@
 package handler
 
-//作業中の内容が消えないよう気を付けます
 import (
 	"bytes"
 	"database/sql"
@@ -199,9 +198,9 @@ func (h *Handler) Login(c echo.Context) error {
 	}
 
 	//validation (whether password is empty)
-	if req.Password == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, "Password cannot be empty")
-	}
+	//if req.Password == "" {
+	//return echo.NewHTTPError(http.StatusBadRequest, "Password cannot be empty")
+	//}
 
 	user, err := h.UserRepo.GetUser(ctx, req.UserID)
 	if err != nil {
